@@ -10,7 +10,8 @@ public class MinFlipCoins {
         int target = 4;
         List<Integer> result = findMinFlips(input, target);
 
-        System.out.println("Minimum coins to flip to get target " + target + ": " + result);
+        System.out.println("Input data: " + input);
+        System.out.println("Minimum coins to flip to get target " + target + " is: " + result);
     }
 
     public static List<Integer> findMinFlips(List<Integer> input, int target) {
@@ -21,7 +22,6 @@ public class MinFlipCoins {
 
     private static void backtrack(List<Integer> input, int target, int index, List<Integer> current, int currentSum, List<Integer> result) {
         if (currentSum == target) {
-
             if (result.isEmpty() || current.size() < result.size()) {
                 result.clear();
                 result.addAll(new ArrayList<>(current));
