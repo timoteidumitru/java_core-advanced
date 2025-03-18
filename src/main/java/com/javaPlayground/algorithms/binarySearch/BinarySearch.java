@@ -1,20 +1,25 @@
 package com.javaPlayground.algorithms.binarySearch;
+
 import java.util.ArrayList;
+import java.util.List;
 
 public class BinarySearch {
-    public ArrayList<Integer> generateArr(){
-        ArrayList<Integer> arrList = new ArrayList<>();
-        for(int i=0;i<=10_000_000;i++){
-            arrList.add(i);
-        }
-        return arrList;
+    public static void main(String[] args) {
+        List<Integer> array = generateArr();
+        int target = 2;
+
+//        binarySearch(array, target);
+        improverBinarySearch(array, target);
+
     }
 
-    public void binarySearch(ArrayList<Integer> arr, int target){
+    public static void binarySearch(List<Integer> arr, int target){
+
         if (arr.size() < target){
             System.out.println("Out of bound value.");
             return;
         }
+
         int left = 0;
         int right = arr.size();
         int count = 0;
@@ -35,5 +40,34 @@ public class BinarySearch {
             }
         }
         System.out.println("Element has not been found!");
+    }
+
+    public static void improverBinarySearch(List<Integer> arr, int tar){
+        int iterations = 0;
+        int left = 0;
+        int right = arr.size() - 1;
+
+        while(left <= right){
+            iterations++;
+            int mid = left + (right - left) / 2;
+            if(arr.get(mid) == tar){
+                System.out.println("Target "+tar+" found after "+iterations+" iterations");
+                return;
+            }else if(arr.get(mid) < tar) {
+                left = mid + 1;
+            }else{
+                right = mid - 1;
+            }
+        }
+
+        System.out.println("Target "+tar+" could not be found in the following data: \n"+arr);
+    }
+
+    public static ArrayList<Integer> generateArr(){
+        ArrayList<Integer> arrList = new ArrayList<>();
+        for(int i=0;i<=100;i++){
+            arrList.add(i);
+        }
+        return arrList;
     }
 }
