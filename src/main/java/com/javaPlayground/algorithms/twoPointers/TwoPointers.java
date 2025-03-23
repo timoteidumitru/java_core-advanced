@@ -1,15 +1,31 @@
 package com.javaPlayground.algorithms.twoPointers;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class TwoPointers {
     public static void main(String[] args) {
         List<Integer> input = Arrays.asList(1,2,4,5,7,8,9,11,12,13,14,17);
-        Integer target = 19;
+        List<Integer> unsortedArr = Arrays.asList(4,1,3,2,5,6,7,8,11,9,12);
+        Integer target = 16;
 
-        twoSum(input, target);
+//        twoSum(input, target);
+        twoSumII(unsortedArr, target);
+    }
+
+    private static void twoSumII(List<Integer> arr, Integer tar) {
+        HashSet<Integer> seen = new HashSet<>();
+        List<List<Integer>> result = new ArrayList<>();
+
+        arr.forEach(e ->  {
+           int complement = tar - e;
+           if (seen.contains(complement)){
+               result.add(Arrays.asList(e, complement));
+           }
+           seen.add(e);
+        });
+
+        System.out.println("Result: "+result);
     }
 
     private static void twoSum(List<Integer> arr, Integer tar) {
