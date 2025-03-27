@@ -1,7 +1,6 @@
 package com.javaPlayground.algorithms.twoPointers;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class TwoPointers {
     public static void main(String[] args) {
@@ -25,7 +24,7 @@ public class TwoPointers {
            seen.add(e);
         });
 
-        System.out.println("Result: "+result);
+        System.out.println("Result: " + result);
     }
 
     private static void twoSum(List<Integer> arr, Integer tar) {
