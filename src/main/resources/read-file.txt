@@ -1,0 +1,2 @@
+Hey, this is a text from a file called read-file.txt
+We used this file for both approaches(simple one with scanner and the other with try with resources).

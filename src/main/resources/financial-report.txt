@@ -1,0 +1,12 @@
+name       site        hours        rate
+John       facebook       35          45
+Emily      amazon         28          40
+Michael    generic        22          30
+Sophia     henrietta      40          50
+Daniel     basex          30          38
+Emma       lowliness      27          42
+Liam       trade          15          25
+Olivia     facade         32          48
+Noah       resolute       20          35
+Angela     facade         25          40
+Total:     10 employees, 274 hours worked

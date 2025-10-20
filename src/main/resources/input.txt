@@ -1,0 +1,7 @@
+Explanation:
+- InputStreamReader: Wraps a FileInputStream and reads bytes from a file, converting them into characters using the specified character encoding (UTF-8 in this case).
+- OutputStreamWriter: Wraps a FileOutputStream and writes characters to a file, converting them back into bytes using the specified encoding.
+ + The try-with-resources statement ensures that the streams are closed automatically after use.
+Input/Output Files:
+- The input.txt file is the source file containing the data.
+- The output.txt file is the destination where the data will be written.

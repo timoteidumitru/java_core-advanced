@@ -1,0 +1,4 @@
+This is an example of writing to a file in Java.
+Hey, I try to interact with this file to see if I can write some text using terminal.
+yeap, it works, we can successfully can write to a file :)
+Hey, lets see if it works to write this to our local file
