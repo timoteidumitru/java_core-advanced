@@ -14,6 +14,7 @@ public class ValidWord {
 
         String input = "Hello1";
         System.out.println("Is valid: " + validWord(input));
+        System.out.println("Is valid: " + isValidWord(input));
     }
 
     private static boolean validWord(String input) {
@@ -63,5 +64,38 @@ public class ValidWord {
 
         // 3️⃣ Final condition
         return hasDigit && hasLetter && hasVowel && hasConsonant;
+    }
+
+    // enhanced approach
+    private static boolean isValidWord(String input) {
+        if (input == null || input.length() < 3) {
+            return false; // too short
+        }
+
+        boolean hasDigit = false;
+        boolean hasVowel = false;
+        boolean hasConsonant = false;
+
+        for (int i = 0; i < input.length(); i++) {
+            char ch = input.charAt(i);
+            char lower = Character.toLowerCase(ch);
+
+            if (Character.isDigit(ch)) {
+                hasDigit = true;
+            } else if (Character.isLetter(ch)) {
+                if (lower == 'a' || lower == 'e' || lower == 'i' || lower == 'o' || lower == 'u') {
+                    hasVowel = true;
+                } else {
+                    hasConsonant = true;
+                }
+            }
+
+            // Early exit if all conditions are satisfied
+            if (hasDigit && hasVowel && hasConsonant) {
+                break;
+            }
+        }
+
+        return hasDigit && hasVowel && hasConsonant;
     }
 }
