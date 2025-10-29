@@ -1,6 +1,10 @@
 package com.javaPlayground.algorithms.book;
 
+import lombok.Getter;
+
+@Getter
 public class Book {
+
     private int id;
     private String title;
     private String author;
@@ -13,26 +17,6 @@ public class Book {
         this.author = author;
         this.price = price;
         this.year = year;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public String getAuthor() {
-        return author;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public int getYear() {
-        return year;
     }
 
     @Override

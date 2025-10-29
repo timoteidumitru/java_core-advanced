@@ -1,6 +1,7 @@
 package com.javaPlayground.oopConcepts.abstraction;
 
 abstract class Animal {
+
     abstract void eat();
     abstract void sound();
 

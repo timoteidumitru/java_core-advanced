@@ -1,5 +1,8 @@
 package com.javaPlayground.oopConcepts.abstraction;
 
+import lombok.Getter;
+
+@Getter
 public class GermanShepherd extends Animal {
     String favoriteActivity = "long walks";
 
@@ -10,10 +13,7 @@ public class GermanShepherd extends Animal {
 
     @Override
     void sound() {
-        System.out.println("GermanShepherd howl and bark.");
+        System.out.println("GermanShepherd howls and bark.");
     }
 
-    public String getFavoriteActivity() {
-        return favoriteActivity;
-    }
 }

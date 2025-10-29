@@ -1,13 +1,18 @@
 package com.javaPlayground.collections;
 
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Objects;
 
+@Getter
 public class Employee implements Comparable<Employee>{
     int id;
     String name;
     int salary;
     int age;
 
+    @Setter
     String department;
 
     public Employee(int id, String name, int salary, int age, String department) {
@@ -16,30 +21,6 @@ public class Employee implements Comparable<Employee>{
         this.salary = salary;
         this.age = age;
         this.department = department;
-    }
-
-    public String getDepartment() {
-        return department;
-    }
-
-    public void setDepartment(String department) {
-        this.department = department;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getSalary() {
-        return salary;
-    }
-
-    public int getAge() {
-        return age;
     }
 
     @Override

@@ -6,8 +6,8 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class Runner {
     public static void main(String[] args) throws InterruptedException {
-        usingArrayList();
-//        usingHasMap();
+//        usingArrayList();
+        usingHasMap();
     }
 
     public static void usingArrayList() throws InterruptedException {
@@ -35,10 +35,8 @@ public class Runner {
         map.put(1, "Mike");
         map.put(2, "Jane");
 
-        Iterator<String> iterator = map.values().iterator();
-
-        while (iterator.hasNext()){
-            String elem = iterator.next(); // no copy/clone concept on maps
+        // no copy/clone concept on maps
+        for (String elem : map.values()) {
             System.out.println(elem);
             map.put(3, "John");
             Thread.sleep(1000);

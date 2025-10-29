@@ -9,11 +9,19 @@ public class Runner {
         Dog dog = new Dog();
         Wolf wolf = new Wolf();
         GermanShepherd germanShepherd = new GermanShepherd();
+
         dog.favoriteActivity(dog.getFavoriteActivity());
         dog.sound();
+        dog.eat();
+        System.out.print("\n");
+
         wolf.favoriteActivity(wolf.getFavoriteActivity());
         wolf.sound();
+        wolf.eat();
+        System.out.print("\n");
+
         germanShepherd.favoriteActivity(germanShepherd.getFavoriteActivity());
         germanShepherd.sound();
+        germanShepherd.eat();
     }
 }

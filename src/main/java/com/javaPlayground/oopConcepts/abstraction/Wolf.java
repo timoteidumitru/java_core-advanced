@@ -1,5 +1,8 @@
 package com.javaPlayground.oopConcepts.abstraction;
 
+import lombok.Getter;
+
+@Getter
 public class Wolf extends Animal{
     String favoriteActivity = "pack hunting";
 
@@ -13,7 +16,4 @@ public class Wolf extends Animal{
         System.out.println("Wolf howls.");
     }
 
-    public String getFavoriteActivity() {
-        return favoriteActivity;
-    }
 }

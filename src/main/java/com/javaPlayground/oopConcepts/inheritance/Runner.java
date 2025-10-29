@@ -8,9 +8,19 @@ public class Runner {
     */
     public static void main(String[] args) {
         AudiCar audiCar = new AudiCar();
+
+        System.out.println("############################################################");
         audiCar.accelerate();
+        System.out.println("############################################################");
+
         audiCar.stopped();
+        System.out.println("############################################################");
+
         audiCar.refill();
+        System.out.println("############################################################");
+
         audiCar.doService();
+        System.out.println("############################################################");
+
     }
 }

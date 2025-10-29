@@ -1,5 +1,8 @@
 package com.javaPlayground.oopConcepts.abstraction;
 
+import lombok.Getter;
+
+@Getter
 public class Dog extends Animal{
     String favoriteActivity = "play fetch";
 
@@ -13,7 +16,4 @@ public class Dog extends Animal{
         System.out.println("Dog barks.. woff-woff");
     }
 
-    public String getFavoriteActivity() {
-        return favoriteActivity;
-    }
 }

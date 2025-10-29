@@ -6,7 +6,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 public class HashMapWithThread extends Thread {
     // will throw an ConcurrentModificationException due to Locking Mechanism on whole Object
-//     public static Map<Integer, String> map = new HashMap<>();
+    // public static Map<Integer, String> map = new HashMap<>();
     // will NOT throw any ConcurrentModificationException due to Locking Mechanism of accessing just one element of the Object
     public static Map<Integer, String> map = new ConcurrentHashMap<>();
     public static void main(String[] args) throws InterruptedException {
