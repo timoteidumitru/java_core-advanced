@@ -1,0 +1,9 @@
+
+                Exception
+                    │
+               AppException
+                    │
+             DatabaseException
+         ┌──────────────────────┐
+         │                      │
+ConnectionException       QueryException
