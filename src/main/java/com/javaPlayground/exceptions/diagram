@@ -1,0 +1,32 @@
+Throwable
+├── Exception                               (Checked)
+│   └── ApplicationException
+│       ├── DataAccessException
+│       │   └── DatabaseTimeoutException
+│       └── BusinessException
+└── RuntimeException                        (Unchecked)
+    └── ApplicationRuntimeException
+        ├── ValidationException
+        │   └── EmailValidationException
+        └── SecurityException
+
+
+### All exceptions inherit from Throwable, which splits into Exception and Error.
+### Under Exception, we have checked exceptions that must be handled.
+### And unchecked ones that extend RuntimeException
+
+Throwable
+├── Exception                               // Represents conditions a program might handle
+│   ├── Checked Exceptions                  // Must be declared or handled
+│   │   ├── IOException
+│   │   │   └── FileNotFoundException
+│   │   └── SQLException
+│   └── Unchecked Exceptions                // Extend RuntimeException
+│       ├── RuntimeException
+│       │   ├── NullPointerException
+│       │   ├── ArithmeticException
+│       │   └── IllegalArgumentException
+└── Error                                   // Serious issues, not meant to be caught
+    ├── OutOfMemoryError
+    ├── StackOverflowError
+    └── VirtualMachineError

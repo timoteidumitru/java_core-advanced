@@ -1,9 +1,9 @@
-package com.javaPlayground.exceptions;
+package com.javaPlayground.exceptions.customException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomUserException {
+public class CustomExceptionExample {
     public static void main(String[] args) throws UserNotFoundException {
         Employee employee1 = new Employee(1, "Mike", "London", "Construction", 50000);
         Employee employee2 = new Employee(2, "John", "Germany", "IT", 60000);
