@@ -1,15 +1,3 @@
-Throwable
-├── Exception                               (Checked)
-│   └── ApplicationException
-│       ├── DataAccessException
-│       │   └── DatabaseTimeoutException
-│       └── BusinessException
-└── RuntimeException                        (Unchecked)
-    └── ApplicationRuntimeException
-        ├── ValidationException
-        │   └── EmailValidationException
-        └── SecurityException
-
 
 ### All exceptions inherit from Throwable, which splits into Exception and Error.
 ### Under Exception, we have checked exceptions that must be handled.

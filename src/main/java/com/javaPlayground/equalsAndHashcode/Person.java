@@ -1,12 +1,13 @@
 package com.javaPlayground.equalsAndHashcode;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import java.util.Objects;
 
+@AllArgsConstructor
+@NoArgsConstructor
 public class Person {
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
 
     String name;
     int age;
