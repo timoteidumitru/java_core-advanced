@@ -1,19 +1,19 @@
-package com.javaPlayground.javaIO;
+package com.javaPlayground.IO_Operations;
 
 import java.io.*;
 import java.util.Scanner;
 
-public class ReadWriteFiles {
+public class ReadWriteFilesUsingCharStream {
     public static void main(String[] args) throws IOException {
-        File readFile = new File("src/main/resources/read-file.txt");
-        File writeFile = new File("src/main/resources/write-file.txt");
+        File readFile = new File("src/main/resources/IO_operations/read/read-file.txt");
+        File writeFile = new File("src/main/resources/IO_operations/write/write-file.txt");
         // simple example reading / writing from/to a file
-        readFromFile(readFile);
-        writeToFile(writeFile);
+//        readFromFile(readFile);
+//        writeToFile(writeFile);
 
         // Try with resources example
-//        readFile(readFile);
-//        writeFile(writeFile);
+        readFile(readFile);
+        writeFile(writeFile);
     }
 
     public static void readFromFile(File readFile) {

@@ -1,12 +1,12 @@
-package com.javaPlayground.javaIO;
+package com.javaPlayground.IO_Operations;
 
 import java.io.*;
 import java.nio.charset.StandardCharsets;
 
-public class InputOutputStreams {
+public class CopyDataUsingStreams {
     public static void main(String[] args) {
-        String inputFile = "src/main/resources/input.txt";
-        String outputFile = "src/main/resources/output.txt";
+        String inputFile = "src/main/resources/IO_operations/input.txt";
+        String outputFile = "src/main/resources/IO_operations/output.txt";
 
         // InputStreamReader to read from a file
         try (InputStreamReader isr = new InputStreamReader(new FileInputStream(inputFile), StandardCharsets.UTF_8);
@@ -19,7 +19,7 @@ public class InputOutputStreams {
                 osw.write(data);
             }
 
-            System.out.println("Data successfully copied from input file to output file.");
+            System.out.println("Data successfully copied from input.txt file to output.txt files.");
 
         } catch (IOException e) {
             e.printStackTrace();

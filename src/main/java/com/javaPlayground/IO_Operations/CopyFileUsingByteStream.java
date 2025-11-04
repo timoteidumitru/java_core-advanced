@@ -1,4 +1,4 @@
-package com.javaPlayground.javaIO;
+package com.javaPlayground.IO_Operations;
 
 import org.springframework.core.io.ClassPathResource;
 import java.io.*;
@@ -8,7 +8,7 @@ import java.io.*;
 * They are ideal for images, audio/video, PDFs, and any non-text files.
 */
 
-public class ByteStreamExample {
+public class CopyFileUsingByteStream {
     public static void main(String[] args) {
         try {
             // Load input file from resources (inside the classpath)

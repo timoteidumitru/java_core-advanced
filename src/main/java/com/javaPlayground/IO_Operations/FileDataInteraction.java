@@ -1,4 +1,4 @@
-package com.javaPlayground.javaIO;
+package com.javaPlayground.IO_Operations;
 
 import java.io.*;
 import java.util.Scanner;
@@ -8,8 +8,8 @@ public class FileDataInteraction {
         Scanner scanner = new Scanner(System.in);
         String userChoice;
 
-        File readFile = new File("src/main/resources/write-file.txt");
-        File writeFile = new File("src/main/resources/write-file.txt");
+        File readFile = new File("src/main/resources/IO_operations/write-file.txt");
+        File writeFile = new File("src/main/resources/IO_operations/write-file.txt");
 
         while (true) {
             System.out.println("\nChoose an option:");
