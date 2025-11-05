@@ -4,11 +4,11 @@ import java.io.*;
 import java.util.HashMap;
 import java.util.Map;
 
-public class DepartmentSalaryReport {
+public class AverageSalaryReport {
 
     public static void main(String[] args) {
-        String inputFile = "src/main/resources/IO_operations/large_dataset.csv";                // Input CSV file
-        String outputFile = "src/main/resources/IO_operations/report/department_report.csv";    // Output report file
+        String inputFile = "src/main/resources/IO_operations/large_dataset.csv";                       // Input CSV file
+        String outputFile = "src/main/resources/IO_operations/report/average_salary_report.csv";       // Output report file
 
         // Maps to hold department -> (total salary, count)
         Map<String, Double> totalSalaries = new HashMap<>();
@@ -59,7 +59,7 @@ public class DepartmentSalaryReport {
                 writer.newLine();
             }
 
-            System.out.println("Report generated successfully: department_report.csv");
+            System.out.println("Report generated successfully: average_salary_report.csv");
 
         } catch (IOException e) {
             e.printStackTrace();
