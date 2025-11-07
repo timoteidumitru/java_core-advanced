@@ -47,10 +47,7 @@ public class CSVtoExcelMultithreaded {
             String line;
             while ((line = reader.readLine()) != null) {
                 queue.put(line);
-                long count = linesRead.incrementAndGet();
-                if (count % PROGRESS_INTERVAL == 0) {
-                    System.out.println("[Reader] Lines read: " + count);
-                }
+                linesRead.incrementAndGet(); // ✅ count progress
             }
             queue.put(POISON_PILL);
         } catch (Exception e) {
@@ -118,14 +115,12 @@ public class CSVtoExcelMultithreaded {
                     }
                 }
 
+                linesWritten.incrementAndGet(); // ✅ count progress
+
                 if (rowNum % 5000 == 0) {
                     sheet.flushRows(100); // free memory
                 }
 
-                long written = linesWritten.incrementAndGet();
-                if (written % PROGRESS_INTERVAL == 0) {
-                    System.out.println("[Writer] Lines written: " + written);
-                }
             }
 
             for (int i = 0; i < 5; i++) {
@@ -140,16 +135,28 @@ public class CSVtoExcelMultithreaded {
         }
     }
 
-    // Monitor thread (optional but nice for long tasks)
+    // Monitor thread (synchronized progress)
     private static void monitorProgress() {
         try {
+            long lastReported = 0;
+
             while (true) {
-                Thread.sleep(5000);
+                Thread.sleep(1000); // check every second
+
                 long read = linesRead.get();
                 long written = linesWritten.get();
-                System.out.printf("[Progress] Read: %,d | Written: %,d%n", read, written);
-                if (read == written && read > 0) {
-                    System.out.println("✅ Processing complete.");
+                long progressPoint = Math.min(read, written);
+
+                // Only report when both have advanced past the last milestone
+                if (progressPoint / PROGRESS_INTERVAL > lastReported / PROGRESS_INTERVAL) {
+                    System.out.printf("[Progress] %,d lines processed (Read: %,d | Written: %,d)%n",
+                            progressPoint, read, written);
+                    lastReported = progressPoint;
+                }
+
+                // Exit when all lines are written
+                if (read == written && read > 0 && Thread.activeCount() <= 3) {
+                    System.out.printf("✅ Completed: %,d total lines processed.%n", written);
                     break;
                 }
             }
