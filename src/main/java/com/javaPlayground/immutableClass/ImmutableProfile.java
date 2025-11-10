@@ -1,16 +1,15 @@
 package com.javaPlayground.immutableClass;
 
+import lombok.Getter;
+
 import java.util.Date;
 
 public final class ImmutableProfile {
+    @Getter
     private final  int id;
     private final  PersonalDetails personalDetails; // mutable
     private final BankDetails bankDetails; // mutable
     private final Date doj; // mutable
-
-    public int getId() {
-        return id;
-    }
 
     public PersonalDetails getPersonalDetails() {
         return new PersonalDetails(personalDetails.getId(), personalDetails.getName());
