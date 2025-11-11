@@ -1,4 +1,4 @@
-package com.javaPlayground.garbageCollectors.serialGC;
+package com.javaPlayground.garbageCollectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

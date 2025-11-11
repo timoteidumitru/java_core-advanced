@@ -1,0 +1,24 @@
+Parallel GC – Theory & Use Cases
+
+Feature	                                                Description
+🧵 Multi-threaded GC	                                Uses multiple threads to speed up both minor and major collections.
+🧮 Stop-the-world events	                            Still pauses application threads during collection, but finishes faster due to parallel work.
+🚀 Throughput-focused	                                Optimized to spend as much time as possible doing real work, not collecting garbage.
+⚙️ Simple tuning	                                    Requires minimal configuration; scalable with available CPU cores.
+🧠 Default in Java 8	                                Still widely used in server-side apps, ETL jobs, and backend processing.
+
+
+Real-World Scenario	                                    Why Parallel GC Works Well
+🧰 Batch or ETL jobs	                                Throughput is more important than response time (latency).
+🧮 Scientific or numeric computations	                Long-running CPU-bound workloads with large data sets.
+🌐 Backend systems (non-interactive)	                Periodic GC pauses are fine if total work per second is maximized.
+🧾 Report generators, log analyzers, CSV processors	    Data-intensive, single-user tools that can use multiple CPU cores.
+
+
+Option	                                                Purpose
+-XX:+UseParallelGC	                                    Enables the parallel collector (young + old gen).
+-XX:ParallelGCThreads=N	                                Controls number of threads used for GC (default = number of CPU cores).
+-Xms / -Xmx	                                            Set initial and max heap size.
+-Xlog:gc*	                                            View GC activity (Java 9+).
+
+Run Command: java -XX:+UseParallelGC -Xms512m -Xmx512m -Xlog:gc* com.javaPlayground.garbageCollectors.parallelGC.CsvReportAnalyzerParallel

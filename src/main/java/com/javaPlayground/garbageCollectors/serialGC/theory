@@ -1,0 +1,24 @@
+Serial GC – Theory & Use Cases
+
+Feature                                                 Description
+🧵 Single-threaded GC                                   Uses only one thread to perform garbage collection (both minor and major collections).
+🧮 Stop-the-world events                                Completely pauses all application threads during garbage collection cycles.
+⚙️ Simple design                                        Ideal for small applications and single-core systems; minimal overhead.
+🚀 Predictable behavior                                 Easy to understand and debug; each GC event happens sequentially.
+🧠 Default in small-memory JVMs                         Automatically chosen by JVM for low-memory or single-core environments.
+
+
+Real-World Scenario                                     Why Serial GC Works Well
+🧩 Desktop or GUI apps                                  Small heap sizes, typically single-user, where GC pauses aren’t noticeable.
+🧪 Testing or educational purposes                      Perfect for understanding GC behavior in a simple, single-threaded context.
+🧮 Microservices with small heaps                       Low memory footprint and minimal thread management overhead.
+📊 Batch jobs or scripts                                When simplicity is more important than performance scalability.
+
+
+Option                                                  Purpose
+-XX:+UseSerialGC                                        Enables the Serial Garbage Collector (single-threaded).
+-Xms / -Xmx                                             Sets initial and maximum heap size.
+-Xlog:gc*                                               Enables detailed GC logging (Java 9+).
+
+Run Command:
+java -XX:+UseSerialGC -Xms512m -Xmx512m -Xlog:gc* com.javaPlayground.garbageCollectors.serialGC.CsvReportAnalyzer
