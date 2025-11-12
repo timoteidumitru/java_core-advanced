@@ -1,0 +1,25 @@
+G1 GC (Garbage-First) – Theory & Use Cases
+
+Feature                                                Description
+🌍 Region-based heap                                   The heap is divided into multiple equal-sized regions instead of fixed young/old generations.
+⚙️ Parallel and concurrent                             Performs many GC tasks concurrently with application threads to reduce pause times.
+🚀 Low-latency, high-throughput hybrid                 Designed to maintain short, predictable pause times while keeping high throughput.
+🧩 Adaptive behavior                                   Dynamically balances between young and old collections based on pause-time targets.
+🧠 Default GC from Java 9 onward                       Automatically chosen for most server and enterprise applications.
+
+
+Real-World Scenario                                    Why G1 GC Works Well
+🏢 Large heap applications (multi-GB)                  Handles big heaps efficiently without long stop-the-world pauses.
+🌐 Web servers and microservices                       Predictable pause times help maintain smooth user experience.
+📊 Data-intensive apps (analytics, ETL)                Processes large datasets while keeping latency low.
+🧾 Real-time dashboards, financial apps                Useful where consistent responsiveness matters more than absolute throughput.
+
+
+Option                                                 Purpose
+-XX:+UseG1GC                                           Enables the Garbage-First Garbage Collector.
+-XX:MaxGCPauseMillis=<ms>                              Sets the desired maximum pause time (e.g. 200ms).
+-Xms / -Xmx                                            Sets initial and maximum heap size.
+-Xlog:gc*                                              Enables detailed GC logging (Java 9+).
+
+Run Command:
+java -XX:+UseG1GC -XX:MaxGCPauseMillis=200 -Xms512m -Xmx512m -Xlog:gc* com.javaPlayground.garbageCollectors.G1GC.CsvReportAnalyzerG1
