@@ -1,0 +1,38 @@
+ZGC (Z Garbage Collector) – Theory & Use Cases
+
+Feature                                              Description
+⚡ Ultra-low latency GC                                Pause times typically under 1 millisecond, regardless of heap size.
+🧩 Concurrent compaction                              Performs marking, relocation, and cleanup concurrently with application threads.
+🏗️ Scalable design                                    Handles multi-terabyte heaps efficiently without long stop-the-world pauses.
+🧠 Colored pointers                                   Uses pointer metadata to track object states with minimal synchronization.
+🚀 Modern memory model                                Continuously reclaims unused memory and can return it to the OS.
+
+
+Real-World Scenario                                  Why ZGC Works Well
+🏦 Real-time financial trading                        Predictable response times with minimal GC interference.
+🧮 Machine learning & analytics                       Processes large datasets in memory with low-latency GC.
+🎮 Gaming & streaming apps                            Ensures consistent frame rates and responsiveness.
+🌐 High-throughput APIs & microservices               Ideal for large-scale, low-latency distributed systems.
+📊 Event-driven systems                               Smooth operation under heavy and dynamic memory load.
+
+
+Option                                               Purpose
+-XX:+UseZGC                                           Enables the Z Garbage Collector.
+-XX:SoftMaxHeapSize=<size>                            Sets preferred soft heap limit for dynamic memory control.
+-XX:+ZUncommit                                        Allows unused memory to be returned to the OS.
+-Xms / -Xmx                                           Set initial and maximum heap size.
+-Xlog:gc*                                             View GC activity (Java 9+).
+
+Run Command:
+java -XX:+UseZGC `
+     -Xms25g -Xmx25g `
+     -XX:SoftMaxHeapSize=25g `
+     -XX:+ZUncommit `
+     -Xlog:gc*,gc+stats=trace:file=src/main/resources/IO_operations/gc-perf.log `
+     -cp target\classes `
+     com.javaPlayground.garbageCollectors.ZGC.CsvReportAnalyzerZGC_Heavy
+
+Summary:
+ZGC is ideal for large-scale, low-latency applications that demand predictable performance under high memory load.
+It achieves this through concurrent marking, relocation, and remapping phases, ensuring that the Java application
+threads continue executing with minimal interruption.
