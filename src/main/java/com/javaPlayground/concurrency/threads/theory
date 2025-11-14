@@ -1,0 +1,10 @@
+🔥 2. Thread Lifecycle
+
+A thread has 5 main states:
+    * New — created but not started
+    * Runnable — ready or running
+    * Blocked — waiting for monitor lock
+    * Waiting / Timed Waiting — wait(), sleep(), or join()
+    * Terminated — finished execution
+
+
