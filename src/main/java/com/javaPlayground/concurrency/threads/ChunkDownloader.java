@@ -7,7 +7,6 @@ import lombok.NoArgsConstructor;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class ChunkDownloader extends Thread {
     private String fileUrl;
