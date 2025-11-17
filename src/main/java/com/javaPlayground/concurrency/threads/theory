@@ -17,13 +17,11 @@ A thread has 5 main states:
     * Forgetting that notify does NOT release lock → confusion / unexpected delays
 
 
-🧠 3. Java Memory Model (JMM)
+🧠 3. Java Memory Model (JMM) (Mental Model)
 
-The Java Memory Model defines how threads interact through memory, including:
-   * What a thread is allowed to see from other threads
-   * When writes become visible
-   * Which operations are atomic
-   * What reordering the JVM is allowed to do
-   * What the volatile keyword actually means
-   * Why correct thread-safety requires happens-before relationships
-
+      Concept                   What it Solves
+    * volatile                  Visibility + Prevents Reordering
+    * synchronized              Atomicity + Visibility + ordering
+    * happens-before            Rules guaranteeing visibility
+    * atomic operations	        Indivisible operations
+    * JMM                       Defines all allowed interactions between threads
