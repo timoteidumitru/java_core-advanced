@@ -1,4 +1,4 @@
-🔥 2. Thread Lifecycle
+🔥 1. Thread Lifecycle
 
 A thread has 5 main states:
     * New — created but not started
@@ -7,4 +7,23 @@ A thread has 5 main states:
     * Waiting / Timed Waiting — wait(), sleep(), or join()
     * Terminated — finished execution
 
+
+🧨 2. Common Mistakes
+
+    * Calling wait/notify outside synchronized → IllegalMonitorStateException
+    * Using if instead of while → breaks on spurious wakeups
+    * Using notify() instead of notifyAll() → potential deadlocks in multi-consumer or multi-producer systems
+    * Holding locks too long → thread starvation
+    * Forgetting that notify does NOT release lock → confusion / unexpected delays
+
+
+🧠 3. Java Memory Model (JMM)
+
+The Java Memory Model defines how threads interact through memory, including:
+   * What a thread is allowed to see from other threads
+   * When writes become visible
+   * Which operations are atomic
+   * What reordering the JVM is allowed to do
+   * What the volatile keyword actually means
+   * Why correct thread-safety requires happens-before relationships
 
