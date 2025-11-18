@@ -14,5 +14,4 @@ public class DoubleCheckedLocking {
         }
         return instance;
     }
-
 }

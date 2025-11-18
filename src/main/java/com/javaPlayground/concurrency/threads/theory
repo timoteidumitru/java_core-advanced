@@ -25,3 +25,15 @@ A thread has 5 main states:
     * happens-before            Rules guaranteeing visibility
     * atomic operations	        Indivisible operations
     * JMM                       Defines all allowed interactions between threads
+
+
+🛑 4. Race Conditions & Correct Patterns
+
+    * Race Condition: multiple threads access and modify shared data without proper synchronization → inconsistent results
+    * Fix with synchronized: ensures atomicity, ordering, and visibility
+    * Fix with Atomic classes (AtomicInteger, AtomicBoolean): lock-free thread-safe updates
+    * Confinement: avoid sharing mutable state between threads → no synchronization needed
+    * Immutability: immutable objects are inherently thread-safe
+    * Safe Publication: ensure other threads see fully initialized objects
+    * Correct double-checked locking requires volatile
+    * Avoid deadlocks with consistent lock ordering and minimal lock scope
