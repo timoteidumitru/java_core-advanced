@@ -41,8 +41,9 @@ A thread has 5 main states:
 
 🧵 5. Condition Queues, Memory Fences & False Sharing
 
-+ Condition Queues Condition queues (Condition objects) are used with ReentrantLock to coordinate producers and consumers.
++ Condition queues (Condition objects) are used with ReentrantLock to coordinate producers and consumers.
   They allow threads to wait until specific conditions become true.
+
     Key points:
         * await() puts a thread to sleep until signaled
         * signal() wakes a single waiting thread
@@ -54,7 +55,7 @@ A thread has 5 main states:
         * Producer waits for space → notFull condition
         * Consumer waits for items → notEmpty condition
 
-+ Memory Fences (Barriers) Memory fences enforce ordering of memory operations.
++ Memory Fences (Barriers) enforce ordering of memory operations.
   They prevent the CPU or compiler from rearranging reads/writes across the fence.
 
     In Java:
@@ -66,7 +67,7 @@ A thread has 5 main states:
         * All writes before a fence become visible to other threads
         * Prevents reorderings that break thread safety
 
-+ False Sharing False sharing happens when two threads modify variables
++ False sharing happens when two threads modify variables
   that lie close together in the same CPU cache line, causing unnecessary cache invalidations.
 
     Symptoms:
@@ -82,3 +83,4 @@ A thread has 5 main states:
         * Padding fields (using @Contended)
         * Structuring data so different threads use different cache lines
         * Avoid tight coupling of independent counters or metrics
+
