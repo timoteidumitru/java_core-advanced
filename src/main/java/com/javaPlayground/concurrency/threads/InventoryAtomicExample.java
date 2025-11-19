@@ -31,7 +31,7 @@ public class InventoryAtomicExample {
             while (inventory.buy()) {
                 purchases++;
                 System.out.println(threadName + " successfully bought an item.");
-                try { Thread.sleep(100); } catch (InterruptedException e) {}
+                try { Thread.sleep((long) (Math.random() * 300)); } catch (InterruptedException e) {}
             }
 
             System.out.println(threadName + " STOPPED. Items bought: " + purchases);

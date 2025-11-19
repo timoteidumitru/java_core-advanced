@@ -22,7 +22,7 @@ A thread has 5 main states:
       Concept                   What it Solves
     * volatile                  Visibility + Prevents Reordering
     * synchronized              Atomicity + Visibility + ordering
-    * happens-before            Rules guaranteeing visibility
+    * happens-before            Rules guaranteeing visibility=
     * atomic operations	        Indivisible operations
     * JMM                       Defines all allowed interactions between threads
 
