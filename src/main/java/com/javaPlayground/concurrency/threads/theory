@@ -37,3 +37,48 @@ A thread has 5 main states:
     * Safe Publication: ensure other threads see fully initialized objects
     * Correct double-checked locking requires volatile
     * Avoid deadlocks with consistent lock ordering and minimal lock scope
+
+
+🧵 5. Condition Queues, Memory Fences & False Sharing
+
++ Condition Queues Condition queues (Condition objects) are used with ReentrantLock to coordinate producers and consumers.
+  They allow threads to wait until specific conditions become true.
+    Key points:
+        * await() puts a thread to sleep until signaled
+        * signal() wakes a single waiting thread
+        * signalAll() wakes all waiting threads
+        * Used when synchronized + wait/notify is not enough
+        * Enables multiple independent wait-sets per lock (unlike intrinsic locks)
+
+    Example usage:
+        * Producer waits for space → notFull condition
+        * Consumer waits for items → notEmpty condition
+
++ Memory Fences (Barriers) Memory fences enforce ordering of memory operations.
+  They prevent the CPU or compiler from rearranging reads/writes across the fence.
+
+    In Java:
+        * volatile write acts as a release fence
+        * volatile read acts as an acquire fence
+        * synchronized blocks act as full fences
+
+    Guarantees:
+        * All writes before a fence become visible to other threads
+        * Prevents reorderings that break thread safety
+
++ False Sharing False sharing happens when two threads modify variables
+  that lie close together in the same CPU cache line, causing unnecessary cache invalidations.
+
+    Symptoms:
+        * Performance degradation
+        * High CPU usage
+        * Unpredictable slowdowns in multi-threaded code
+
+    Causes:
+        * Adjacent fields accessed by different threads
+        * Arrays where consecutive elements are updated by separate threads
+
+    Fixes:
+        * Padding fields (using @Contended)
+        * Structuring data so different threads use different cache lines
+        * Avoid tight coupling of independent counters or metrics
