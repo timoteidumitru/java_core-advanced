@@ -1,11 +1,11 @@
 🔥 1. Thread Lifecycle
 
-A thread has 5 main states:
-    * New — created but not started
-    * Runnable — ready or running
-    * Blocked — waiting for monitor lock
-    * Waiting / Timed Waiting — wait(), sleep(), or join()
-    * Terminated — finished execution
+    A thread has 5 main states:
+        * New — created but not started
+        * Runnable — ready or running
+        * Blocked — waiting for monitor lock
+        * Waiting / Timed Waiting — wait(), sleep(), or join()
+        * Terminated — finished execution
 
 
 🧨 2. Common Mistakes
@@ -41,46 +41,81 @@ A thread has 5 main states:
 
 🧵 5. Condition Queues, Memory Fences & False Sharing
 
-+ Condition queues (Condition objects) are used with ReentrantLock to coordinate producers and consumers.
-  They allow threads to wait until specific conditions become true.
+    + Condition queues (Condition objects) are used with ReentrantLock to coordinate producers and consumers.
+      They allow threads to wait until specific conditions become true.
 
-    Key points:
-        * await() puts a thread to sleep until signaled
-        * signal() wakes a single waiting thread
-        * signalAll() wakes all waiting threads
-        * Used when synchronized + wait/notify is not enough
-        * Enables multiple independent wait-sets per lock (unlike intrinsic locks)
+        Key points:
+            * await() puts a thread to sleep until signaled
+            * signal() wakes a single waiting thread
+            * signalAll() wakes all waiting threads
+            * Used when synchronized + wait/notify is not enough
+            * Enables multiple independent wait-sets per lock (unlike intrinsic locks)
 
-    Example usage:
-        * Producer waits for space → notFull condition
-        * Consumer waits for items → notEmpty condition
+        Example usage:
+            * Producer waits for space → notFull condition
+            * Consumer waits for items → notEmpty condition
 
-+ Memory Fences (Barriers) enforce ordering of memory operations.
-  They prevent the CPU or compiler from rearranging reads/writes across the fence.
+    + Memory Fences (Barriers) enforce ordering of memory operations.
+      They prevent the CPU or compiler from rearranging reads/writes across the fence.
 
-    In Java:
-        * volatile write acts as a release fence
-        * volatile read acts as an acquire fence
-        * synchronized blocks act as full fences
+        In Java:
+            * volatile write acts as a release fence
+            * volatile read acts as an acquire fence
+            * synchronized blocks act as full fences
 
-    Guarantees:
-        * All writes before a fence become visible to other threads
-        * Prevents reorderings that break thread safety
+        Guarantees:
+            * All writes before a fence become visible to other threads
+            * Prevents reorderings that break thread safety
 
-+ False sharing happens when two threads modify variables
-  that lie close together in the same CPU cache line, causing unnecessary cache invalidations.
+    + False sharing happens when two threads modify variables
+      that lie close together in the same CPU cache line, causing unnecessary cache invalidations.
 
-    Symptoms:
-        * Performance degradation
-        * High CPU usage
-        * Unpredictable slowdowns in multi-threaded code
+        Symptoms:
+            * Performance degradation
+            * High CPU usage
+            * Unpredictable slowdowns in multi-threaded code
 
-    Causes:
-        * Adjacent fields accessed by different threads
-        * Arrays where consecutive elements are updated by separate threads
+        Causes:
+            * Adjacent fields accessed by different threads
+            * Arrays where consecutive elements are updated by separate threads
 
-    Fixes:
-        * Padding fields (using @Contended)
-        * Structuring data so different threads use different cache lines
-        * Avoid tight coupling of independent counters or metrics
+        Fixes:
+            * Padding fields (using @Contended)
+            * Structuring data so different threads use different cache lines
+            * Avoid tight coupling of independent counters or metrics
+
+🔐 6. Advanced Locks — ReadWriteLock vs StampedLock
+
+    ReadWriteLock (ReentrantReadWriteLock)
+        Strengths:
+           * Multiple readers can proceed concurrently.
+           * Writers get exclusive access.
+           * Good for read-heavy workloads.
+
+        Weakness:
+           * Writers block all readers.
+           * Reader starvation possible.
+
+        Ideal Use Case:
+           * Caches, configuration maps, product catalogs, reading 90%+, writing <10%.
+
+    StampedLock
+        Strengths:
+           * Optimistic reads are extremely fast (no locking if no writer interferes).
+           * Supports read lock, write lock, and optimistic read.
+           * Great for highly read-dominated data structures.
+
+        Weakness:
+           * Not reentrant.
+           * Requires manual validation of stamps.
+           * Easy to misuse; deadlocks if not unlocking.
+
+        Ideal Use Case:
+           * Real-time analytics, geolocation services, monitoring dashboards, low-contention systems.
+
+    Scientific Summary:
+       * ReentrantReadWriteLock → safer, simpler, predictable performance.
+       * StampedLock → fastest for optimistic-read-heavy workloads; unsafe if misused.
+       * If readers dominate and data is mostly stable → choose StampedLock.
+       * If balance between simplicity and concurrency matters → choose ReadWriteLock.
 
