@@ -1,4 +1,4 @@
-package com.javaPlayground.concurrency.threads;
+package com.javaPlayground.concurrency.locks;
 
 import java.util.concurrent.locks.StampedLock;
 

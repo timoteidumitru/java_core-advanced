@@ -1,4 +1,4 @@
-package com.javaPlayground.concurrency.threads;
+package com.javaPlayground.concurrency.locks;
 
 public class DoubleCheckedLocking {
 

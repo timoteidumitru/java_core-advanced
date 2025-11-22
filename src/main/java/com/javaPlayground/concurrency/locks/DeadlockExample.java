@@ -1,4 +1,4 @@
-package com.javaPlayground.concurrency.threads;
+package com.javaPlayground.concurrency.locks;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
