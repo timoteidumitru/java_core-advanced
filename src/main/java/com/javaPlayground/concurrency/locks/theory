@@ -1,0 +1,34 @@
+Advanced Locks — ReadWriteLock vs StampedLock
+
+    ReadWriteLock (ReentrantReadWriteLock)
+        Strengths:
+           * Multiple readers can proceed concurrently.
+           * Writers get exclusive access.
+           * Good for read-heavy workloads.
+
+        Weakness:
+           * Writers block all readers.
+           * Reader starvation possible.
+
+        Ideal Use Case:
+           * Caches, configuration maps, product catalogs, reading 90%+, writing <10%.
+
+    StampedLock
+        Strengths:
+           * Optimistic reads are extremely fast (no locking if no writer interferes).
+           * Supports read lock, write lock, and optimistic read.
+           * Great for highly read-dominated data structures.
+
+        Weakness:
+           * Not reentrant.
+           * Requires manual validation of stamps.
+           * Easy to misuse; deadlocks if not unlocking.
+
+        Ideal Use Case:
+           * Real-time analytics, geolocation services, monitoring dashboards, low-contention systems.
+
+    Scientific Summary:
+       * ReentrantReadWriteLock → safer, simpler, predictable performance.
+       * StampedLock → fastest for optimistic-read-heavy workloads; unsafe if misused.
+       * If readers dominate and data is mostly stable → choose StampedLock.
+       * If balance between simplicity and concurrency matters → choose ReadWriteLock.

@@ -1,0 +1,40 @@
+✔ CAS (Compare-And-Set)
+    * Hardware-level atomic instruction
+    * Enables non-blocking algorithms
+    * Avoids deadlocks, thread blocking, and context switching
+    * Used by all Atomic* classes and many java.util.concurrent structures
+
+
+✔ Strengths
+    * Extremely fast under contention
+    * Scales to many threads
+    * No OS locking
+    * No deadlocks or starvation
+
+
+✔ Weaknesses
+    * ABA problem (solved using AtomicStampedReference)
+    * CAS loops can spin heavily
+    * Only atomic on a single variable
+
+
+✔ Atomic Classes
+    * AtomicInteger, AtomicLong, AtomicBoolean
+    * AtomicReference, AtomicStampedReference, AtomicMarkableReference
+    * AtomicIntegerArray, AtomicLongArray
+    * LongAdder, LongAccumulator (best under high contention)
+
+
+✔ Correct Use Cases
+    * High-throughput counters → LongAdder
+    * Lock-free updates on single value → AtomicReference
+    * Preventing ABA → AtomicStampedReference
+    * Shared boolean flags → AtomicBoolean
+    * Performance-critical non-blocking algorithms
+
+
+✔ Real-world Usage
+    * High-frequency trading systems
+    * ConcurrentHashMap internals
+    * JVM synchronization primitives (VarHandle/Unsafe)
+    * Telemetry/event counters, metrics systems
