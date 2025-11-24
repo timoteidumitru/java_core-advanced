@@ -1,0 +1,47 @@
+🔧 Thread Pools (Executors Framework)
+
+    ✔ What Thread Pools Solve
+        * Reuse threads instead of creating new ones → faster, efficient
+        * Control concurrency level
+        * Avoid excessive thread creation
+        * Prevent thread-management errors
+        * Essential for scalable apps
+
+
+    ✔ Main Thread Pool Types
+        * FixedThreadPool — stable number of threads, best for CPU-bound work
+        * CachedThreadPool — grows on demand, best for short-lived I/O tasks
+        * SingleThreadExecutor — guarantees sequential execution
+        * ScheduledThreadPool — delayed and periodic task execution
+        * WorkStealingPool — parallelism using ForkJoinPool, ideal for CPU-heavy tasks
+
+
+    ✔ Strengths
+        * Thread reuse → low overhead
+        * Task queueing → smooth handling of load
+        * Prevent unbounded thread creation (except CachedThreadPool)
+        * Useful abstractions (Future, Callable, Scheduled tasks)
+
+
+    ✔ Weaknesses / Pitfalls
+        * CachedThreadPool can create unlimited threads → OOM risk
+        * Forgetting shutdown() keeps the JVM alive
+        * Starvation when long tasks occupy small pools
+        * Pools hide errors if not configured properly
+
+
+    ✔ Real-world Use Cases
+        * Web servers handling client requests
+        * Email/SMS asynchronous sending
+        * Batch processing jobs
+        * Cron-like scheduling (ScheduledExecutorService)
+        * Telemetry and monitoring tasks
+        * Parallel data transformations
+
+
+    ✔ Best Practices
+        * Always call shutdown() or shutdownNow()
+        * Choose pool size based on workload (CPU vs I/O)
+        * Prefer Executors.newFixedThreadPool for controlled concurrency
+        * Use ScheduledThreadPool for periodic jobs
+        * For high parallelism, use WorkStealingPool or ForkJoinPool
