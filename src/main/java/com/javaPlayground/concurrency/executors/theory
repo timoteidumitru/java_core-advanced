@@ -1,0 +1,168 @@
+# Executors Framework
+
+This document summarizes all theoretical knowledge covered today regarding the **Java Executors Framework**,
+including concepts, best practices, pitfalls, and real-world applicability.
+
+---
+
+# 1. What Is the Executors Framework?
+
+The Executors Framework abstracts thread creation and management, making concurrency safer and more efficient by providing:
+
+    * Thread pooling
+    * Task submission (Runnable, Callable)
+    * Scheduling
+    * Graceful shutdown
+    * Task lifecycle control
+
+It replaces manually creating `new Thread()` for each task.
+
+---
+
+# 2. Executor (Base Interface)
+
+The simplest contract for asynchronous execution.
+
+**Signature:**
+
+```java
+void execute(Runnable command);
+```
+
+### ✔ Characteristics
+
+    * No shutdown mechanism
+    * No result retrieval
+    * No task tracking
+    * Suitable for wrappers, filters, or custom dispatchers
+
+### ✔ Use Case
+
+    * Logging/middleware executors
+    * Validation / security processing wrappers
+
+---
+
+# 3. ExecutorService
+
+Provides advanced lifecycle management and asynchronous execution features.
+
+### ✔ Key Features
+
+    * `submit()` returns a `Future`
+    * Allows task cancellation
+    * Supports `Callable`
+    * Supports batch operations (`invokeAll`, `invokeAny`)
+    * Graceful shutdown via `shutdown()` and `shutdownNow()`
+    * Await termination support
+
+### ✔ Thread Pool Types (Factories via Executors)
+
+    * **FixedThreadPool** → Bounded pool for CPU-bound tasks
+    * **CachedThreadPool** → Dynamic pool for I/O-heavy workloads
+    * **SingleThreadExecutor** → Serialized task execution
+
+---
+
+# 4. ScheduledExecutorService
+
+Provides cron-like functionality for delayed and periodic tasks.
+
+### ✔ Capabilities
+
+    * `schedule(Runnable, delay)`
+    * `scheduleAtFixedRate(initialDelay, period)`
+    * `scheduleWithFixedDelay(initialDelay, delay)`
+
+### ✔ Differences Between Fixed-Rate and Fixed-Delay
+
+    * **Fixed-rate:** tries to keep exact intervals → may overlap if tasks run long
+    * **Fixed-delay:** schedules *after* previous execution completes
+
+### ✔ Real Uses
+
+    * Heartbeats
+    * Monitoring & metrics
+    * Cleanup jobs
+    * Retrying failed operations
+    * Email digest batching
+
+---
+
+# 5. Best Practices
+
+### ✔ 1. Always shutdown
+
+Avoid thread leaks and non-terminating applications.
+
+```java
+executor.shutdown();
+```
+
+### ✔ 2. Use meaningful thread names
+
+Debugging is easier when threads have proper names.
+
+```java
+Executors.newFixedThreadPool(4, r -> new Thread(r, "order-worker"));
+```
+
+### ✔ 3. Prefer bounded pools for stability
+
+    Prevents OutOfMemoryError during load spikes.
+
+### ✔ 4. Prefer ThreadPoolExecutor for production
+
+    Gives full control over:
+
+        * queue size
+        * rejection policy
+        * thread naming
+        * metrics
+
+### ✔ 5. CachedThreadPool is for I/O, not heavy CPU
+
+    It can explode to thousands of threads.
+
+---
+
+# 6. Pitfalls
+
+    ### ❌ 1. Forgetting shutdown → Thread leaks
+
+    ### ❌ 2. Blocking tasks in cached pool → runaway threads
+
+    ### ❌ 3. Using single-thread executor for slow workloads → bottleneck
+
+    ### ❌ 4. Using fixed-rate when task duration may exceed period
+
+    ### ❌ 5. Submitting tasks in a tight loop without backpressure
+
+---
+
+# 7. Real-World Architecture Example: Mini Order Processing System
+
+### ✔ Components Involved
+
+    * **FixedThreadPool:** order processing
+    * **CachedThreadPool:** notifications API calls
+    * **ScheduledExecutor:** heartbeats, cleanup jobs
+    * **SingleThreadExecutor:** centralized logging pipeline
+
+### ✔ Highlights
+
+    * Tasks are isolated by responsibility
+    * Thread naming for observability
+    * Graceful shutdown handling
+    * Demonstrates I/O vs CPU separation
+
+---
+
+# 8. Summary
+
+    The Executors Framework provides the foundation for managed concurrency in Java.
+    It enables robust, scalable, production-grade asynchronous systems by decoupling task submission from execution.
+    Understanding how to choose the right executor type and how to manage it safely is critical to building reliable concurrent systems.
+
+---
+
