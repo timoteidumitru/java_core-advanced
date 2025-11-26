@@ -10,7 +10,7 @@ public class ChristmasTree {
             if (i == 0) {
                 sb.append(" ".repeat(a)).append("^").append("\n");
 
-            } else if (i > 1 && i < a) {
+            } else if (i > 2 && i < a) {
                 StringBuilder line = new StringBuilder();
                 for (int j = 0; j <= i * 2; j++) {
                     int rand = (int) (Math.random() * 2);
@@ -43,7 +43,4 @@ public class ChristmasTree {
         }
     }
 }
-
-
-
 
