@@ -1,0 +1,15 @@
+
+ supplyAsync ─┬── thenApply ──── thenCompose ─── thenCombine
+              │
+              └───────── (parallel branches) ────────╮
+                                                      ▼
+                                                allOf / anyOf
+                                                      ▼
+                                                final stage
+
+
+✔ Declarative
+✔ Non-blocking
+✔ Supports parallel & dependent steps
+❌ Still uses thread pools under the hood
+❌ Not optimized for streaming

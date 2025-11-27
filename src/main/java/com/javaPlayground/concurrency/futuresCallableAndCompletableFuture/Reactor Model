@@ -1,0 +1,25 @@
+
+        Event Loop (non-blocking)
+                  ▼
+        ┌─────────────────────┐
+        │      Flux Range     │
+        └─────────────────────┘
+                  ▼
+           flatMap (async)
+                  ▼
+       Scheduler (parallel pool)
+       ┌─────────┴─────────┐
+       ▼                   ▼
+    Task A               Task B
+       ▼                   ▼
+      merge ───────────────┘
+                  ▼
+               blockLast()
+
+
+✔ Non-blocking
+✔ Event-loop driven
+✔ Efficient for thousands of parallel IO tasks
+✔ Backpressure and streaming support
+❌ More complex API
+❌ Requires reactive mindset

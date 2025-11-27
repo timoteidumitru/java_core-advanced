@@ -1,0 +1,15 @@
+               ┌───────┐
+Task 1 ───────▶│Thread │
+               └───────┘
+               ┌───────┐
+Task 2 ───────▶│Thread │   (Fixed thread pool)
+               └───────┘
+               ┌───────┐
+Task 3 ───────▶│Thread │
+               └───────┘
+
+
+✔ Easy
+❌ Blocking
+❌ Lots of context switching
+❌ Not ideal for IO-heavy async workloads

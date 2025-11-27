@@ -1,0 +1,8 @@
+
+CPU-bound tasks (parallel compute)  ──────────────▶ ForkJoin / CompletableFuture
+
+Slow IO tasks (REST, DB, Messaging)  ──────────────▶ Reactor (best throughput)
+
+Tasks that must block / simple scripts  ──────────────▶ ExecutorService
+
+Complex async pipelines  ──────────────▶ CompletableFuture
