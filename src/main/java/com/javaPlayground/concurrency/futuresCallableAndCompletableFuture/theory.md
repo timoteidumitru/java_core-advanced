@@ -1,218 +1,222 @@
-# Futures, Callables, and CompletionStage — Theory
-
-## 1. Motivation: Why Futures & Callables?
-
-Multithreading with `Thread` and `Runnable` works, but they have a major limitation:
-
-* **Runnable cannot return a value**
-* **No direct way to know when the task finishes**
-
-As applications grew more concurrent, Java needed a mechanism to:
-
-* Run computations in background threads
-* Retrieve values when those threads finished
-* Manage exceptions occurring in async computations
-* Chain computations without blocking main thread
-
-This is why **Callable**, **Future**, and later **CompletableFuture / CompletionStage** were created.
+# Theory for Futures, Callables, CompletableFuture & CompletionStage
 
 ---
 
-## 2. Callable — A Task That Returns a Value
+# 1. Motivation for Asynchronous Programming
 
-### 🔹 What it is
+Modern applications require:
 
-A `Callable<T>` is similar to a Runnable but returns a result and can throw checked exceptions.
+* Non-blocking I/O
+* High throughput under load
+* Efficient resource utilization
+* Concurrent execution of tasks
+* Data processing pipelines
+
+Java provides several abstraction levels for async programming:
+
+* **Future** (old, blocking)
+* **Callable** (task with return value)
+* **CompletableFuture/CompletionStage** (modern, non-blocking)
+* **Reactive Streams (Flux/Mono)** (fully async event-driven pipelines)
+
+---
+
+# 2. Callable & Future (Traditional Model)
+
+## Callable
+
+A task that can return a result and throw exceptions.
 
 ```java
-public interface Callable<V> {
-    V call() throws Exception;
-}
+Callable<Integer> task = () -> 42;
 ```
 
-### 🔹 When It's Used
+## Future
 
-* When you need results from background tasks
-* When tasks might fail and you need exception handling
+Represents a pending result.
 
-### 🔹 Why Not Runnable?
+Characteristics:
 
-Because Runnable: 🔸returns nothing 🔸doesn't throw checked exceptions
-
----
-
-## 3. Future — A Handle to an Async Computation
-
-A **Future** represents the result of an asynchronous computation.
-
-### Future allows you to:
-
-* **Check if task is done** → `isDone()`
-* **Cancel task** → `cancel()`
-* **Block until result is ready** → `get()`
-* **Wait with timeout** → `get(timeout, unit)`
-
-### But Future has limitations:
-
-* `get()` **blocks** — no async callback
-* No way to chain computations
-* No streamlined error handling
-
-This paved the way for **CompletableFuture** and **CompletionStage**.
-
----
-
-## 4. CompletableFuture / CompletionStage
-
-Introduced in **Java 8**, they are the modern, powerful asynchronous programming tools.
-
-### What CompletableFuture adds:
-
-✔ Non-blocking execution (`thenApply`, `thenRun`, `thenCompose`)
-✔ Chaining tasks like promises (JavaScript-like)
-✔ Handling success & failure cleanly (`exceptionally`)
-✔ Combining multiple async tasks (`allOf`, `anyOf`)
-✔ Reactive-style async pipelines
-
-### CompletionStage is the interface
-
-`CompletableFuture` is the implementation.
-
----
-
-## 5. Classification of Concepts
-
-### ✔ Callable
-
-* Represents a computation
-* Returns a value
-* Blocks only if Future#get is used
-
-### ✔ Future
-
-* Represents the result of a computation
-* Allows blocking retrieval
+* Blocking: `get()` blocks
+* No chaining
 * No composition
+* No non-blocking callbacks
 
-### ✔ CompletableFuture / CompletionStage
+Useful for:
 
-* Fully async
-* Supports chaining & composition
-* Does not require manual thread management
-* Declarative
+* Simple parallelism
+* Short-lived background tasks
+* CPU parallel computation
+
+Limitations:
+
+* Hard to orchestrate
+* No good error handling model
+* No async pipeline support
 
 ---
 
-## 6. Use Case — Real Example
+# 3. CompletableFuture & CompletionStage
 
-### Scenario: Online Store — Fetch Product, Inventory, Pricing
+Introduced in Java 8 to provide **functional** and **non-blocking** asynchronous pipelines.
 
-You need to:
+CompletableFuture enables:
 
-1. Fetch product details
-2. Fetch live inventory
-3. Fetch discounted price
-4. Combine them into a response
+* async tasks (`supplyAsync`, `runAsync`)
+* chaining (`thenApply`, `thenCompose`)
+* merging (`thenCombine`)
+* parallel operations (`allOf`, `anyOf`)
+* async error handling (`exceptionally`, `handle`)
+* custom executors (`async` overloads)
 
-Using `CompletableFuture`:
+CompletionStage is the underlying interface describing all async steps.
+
+---
+
+# 4. CompletableFuture Pipeline Categories
+
+CompletableFuture provides several types of transformations.
+
+## 4.1 thenApply (sync mapping)
+
+Transforms a result synchronously.
 
 ```java
-CompletableFuture<Product> productFuture = CompletableFuture.supplyAsync(() -> productService.getProduct(id));
-CompletableFuture<Integer> inventoryFuture = CompletableFuture.supplyAsync(() -> inventoryService.getStock(id));
-CompletableFuture<Double> priceFuture = CompletableFuture.supplyAsync(() -> pricingService.getDiscountedPrice(id));
-
-CompletableFuture<ProductDetails> result = productFuture
-    .thenCombine(inventoryFuture, (product, stock) -> new Temp(product, stock))
-    .thenCombine(priceFuture, (tmp, price) -> new ProductDetails(tmp.product, tmp.stock, price));
-
-ProductDetails finalResponse = result.join();
+cf.thenApply(x -> x * 2);
 ```
 
-### Why this is powerful:
+## 4.2 thenCompose (async flat-mapping)
 
-* All calls run **in parallel**
-* No blocking inside tasks
-* Clear pipeline of async operations
-* Easy error handling
-
----
-
-## 7. Robust Example — Multistage Data Processing Pipeline
-
-Below is a conceptual workflow:
-
-1️⃣ Stage 1 — Read user input asynchronously
-2️⃣ Stage 2 — Validate input
-3️⃣ Stage 3 — Process the data
-4️⃣ Stage 4 — Save to database
-5️⃣ Stage 5 — Notify user
-
-Achieved with a CompletableFuture chain:
+Used to chain dependent async tasks.
 
 ```java
-CompletableFuture.supplyAsync(() -> readData())
-    .thenApply(data -> validate(data))
-    .thenCompose(valid -> processAsync(valid))  // returns CompletableFuture
-    .thenApply(processed -> saveToDb(processed))
-    .thenAccept(result -> sendNotification(result))
-    .exceptionally(ex -> { log.error("Error: ", ex); return null; });
+cf.thenCompose(id -> fetchUser(id));
 ```
 
-This pipeline is fully asynchronous, non-blocking, and easy to extend.
-
----
-
-## 8. Error Handling in CompletableFuture
-
-### Approaches:
-
-* `exceptionally()` — recover with fallback value
-* `handle()` — transform result even after error
-* `whenComplete()` — side-effect logging
-
-Example:
+## 4.3 thenCombine (merge independent futures)
 
 ```java
-future.exceptionally(ex -> {
-    log.error("Failed: " + ex.getMessage());
-    return DEFAULT_VALUE;
-});
+cfUser.thenCombine(cfAddress, (u, a) -> new Profile(u, a));
 ```
 
----
+## 4.4 allOf / anyOf
 
-## 9. Best Practices
+Parallel fan-out and fan-in.
 
-### ✔ Do
-
-* Use `supplyAsync()` for tasks returning values
-* Use custom Executor for heavy workloads
-* Use `thenCompose()` instead of nested futures
-* Use `allOf()` to run tasks in parallel
-
-### ❌ Avoid
-
-* Calling `.get()` unless absolutely needed → blocks
-* Sharing mutable state across async tasks
-* Creating too many threads inside CompletableFuture
+* **allOf** → wait for all
+* **anyOf** → wait for first
 
 ---
 
-## 10. Summary
+# 5. Async Pipelines (Structured Asynchronous Programming)
 
-### 🟦 Callable
+Async pipelines resemble dataflow graphs:
 
-* Function that returns a result
+```
+startAsync
+    → transform
+    → transformAsync
+    → compose
+    → merge parallel
+    → final consumer
+```
 
-### 🟧 Future
+Advantages:
 
-* Optional handle for async result — blocking
+* Non-blocking execution
+* Clear structure
+* High scalability
+* Manual control over thread pools
 
-### 🟩 CompletableFuture / CompletionStage
+---
 
-* Full async API
-* Task chains, parallelism, error handling
-* Best modern method for async programming in Java
+# 6. Benchmark Comparison (ExecutorService vs CompletableFuture vs Reactor)
+
+## Scenario
+
+1000 simulated remote calls (10ms each).
+
+| Model                   | Ranking    | Notes                                         |
+| ----------------------- | ---------- | --------------------------------------------- |
+| **Reactor (Flux/Mono)** | 🥇 Fastest | Non-blocking event loop, optimized schedulers |
+| **CompletableFuture**   | 🥈 Medium  | Better pipelining, fewer thread hops          |
+| **ExecutorService**     | 🥉 Slowest | Blocking, high context switching              |
+
+Reasons:
+
+* CF reduces synchronization and uses async chaining
+* Reactor uses event loops and backpressure
+* ExecutorService requires manual blocking synchronization
+
+---
+
+# 7. Visual Diagrams
+
+## 7.1 ExecutorService (Thread per task)
+
+```
+Task 1 ─────────▶ [Thread]
+Task 2 ─────────▶ [Thread]
+Task 3 ─────────▶ [Thread]
+```
+
+* Blocking
+* High context switching
+* Limited expressiveness
+
+---
+
+## 7.2 CompletableFuture Pipeline (DAG)
+
+```
+supplyAsync
+    ├── thenApply
+    ├── thenCompose
+    └── thenCombine
+         └── allOf
+```
+
+* Non-blocking
+* Easy to build complex async sequences
+
+---
+
+## 7.3 Reactor (Event Loop Model)
+
+```
+Flux.range
+    → flatMap
+    → Scheduler parallel
+    → merge
+    → final consumer
+```
+
+* Highly optimized
+* Non-blocking
+* Ideal for IO at scale
+
+---
+
+# 8. When to Use What?
+
+| Use Case                            | Best API               |
+| ----------------------------------- | ---------------------- |
+| Simple background job               | Future/ExecutorService |
+| Async pipeline with transformations | CompletableFuture      |
+| Massive IO-parallel workloads       | Reactor (Flux/Mono)    |
+| Dependent async operations          | thenCompose            |
+| Merge parallel results              | thenCombine / allOf    |
+| Low-latency backend API             | Reactor                |
+
+---
+
+# 9. Key Best Practices
+
+* Avoid blocking (`get()`, `join()`) unless necessary
+* Use custom executors for heavy CPU tasks
+* Prefer `thenCompose` over nested futures
+* Use `handle` or `exceptionally` for error recovery
+* Prefer Reactor for massive IO systems
 
 ---
 
