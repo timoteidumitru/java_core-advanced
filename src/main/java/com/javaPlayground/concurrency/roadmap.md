@@ -1,71 +1,69 @@
 # Java Concurrency Roadmap
 
-This roadmap outlines all topics in Java concurrency, clearly divided into:
-
 ---
 
 ## ✅ 1. Basics of Threads & Concurrency (Covered)
 
-* Thread creation & lifecycle
-* Runnable, Callable
-* Thread states
-* Daemon threads
-* Thread interruption & coordination
+    * Thread creation & lifecycle
+    * Runnable, Callable
+    * Thread states
+    * Daemon threads
+    * Thread interruption & coordination
 
-  * interrupt(), isInterrupted()
-  * Cooperative interruption
-  * join(), sleep(), yield()
+      * interrupt(), isInterrupted()
+      * Cooperative interruption
+      * join(), sleep(), yield()
 
 ---
 
 ## ✅ 2. Shared Data & Visibility (Covered)
 
-* Race conditions
-* synchronized keyword
+    * Race conditions
+    * synchronized keyword
 
-  * Intrinsic locks
-  * Reentrancy
-  * Monitor concepts
-* Condition queues (wait/notify/notifyAll)
-* Memory fences and visibility rules
-* False sharing & cache line effects
+      * Intrinsic locks
+      * Reentrancy
+      * Monitor concepts
+    * Condition queues (wait/notify/notifyAll)
+    * Memory fences and visibility rules
+    * False sharing & cache line effects
 
 ---
 
 ## ✅ 3. Advanced Lock Mechanisms (Covered)
 
-* ReentrantLock
-* ReentrantReadWriteLock
-* StampedLock (optimistic and read/write modes)
-* Benchmarking and use cases for different lock types
+    * ReentrantLock
+    * ReentrantReadWriteLock
+    * StampedLock (optimistic and read/write modes)
+    * Benchmarking and use cases for different lock types
 
 ---
 
 ## ✅ 4. Lock-Free & Atomic Operations (Covered)
 
-* CAS (Compare-and-Swap)
-* Atomic classes
-* AtomicInteger, AtomicLong, AtomicReference, etc.
-* Lock-free algorithms and examples
+    * CAS (Compare-and-Swap)
+    * Atomic classes
+    * AtomicInteger, AtomicLong, AtomicReference, etc.
+    * Lock-free algorithms and examples
 
 ---
 
-## 🚧 5. Executors Framework (In Progress)
+## ✅ 5. Executors Framework (Covered)
 
-* Executor
-* ExecutorService
-* ScheduledExecutorService
-* Best practices & pitfalls
+    * Executor
+    * ExecutorService
+    * ScheduledExecutorService
+    * Best practices & pitfalls
 
 ---
 
-## 🚧 6. Futures, Callables, and CompletionStage (To Cover)
+## ✅ 6. Futures, Callables, and CompletionStage (Covered)
 
-* Future and FutureTask
-* CompletableFuture
-* Async pipelines and chaining
-* Combining and orchestrating futures
-* Exception handling in async flows
+    * Future and FutureTask
+    * CompletableFuture
+    * Async pipelines and chaining
+    * Combining and orchestrating futures
+    * Exception handling in async flows
 
 ---
 
