@@ -16,24 +16,6 @@ public class AsyncBenchmark {
         return "Result " + id;
     }
 
-    public static void main(String[] args) throws Exception {
-
-        System.out.println("===== BEGINNING BENCHMARK =====");
-        Thread.sleep(1000);
-
-        // 1️⃣ ExecutorService benchmark
-        long t1 = executorServiceBenchmark();
-        System.out.println("ExecutorService: " + t1 + " ms");
-
-        // 2️⃣ CompletableFuture benchmark
-        long t2 = completableFutureBenchmark();
-        System.out.println("CompletableFuture: " + t2 + " ms");
-
-        // 3️⃣ Reactor benchmark
-        long t3 = reactorBenchmark();
-        System.out.println("Reactor Flux: " + t3 + " ms");
-    }
-
     // ---------------------------------------------------
     // Benchmark 1: ExecutorService + Future
     // ---------------------------------------------------
@@ -83,6 +65,24 @@ public class AsyncBenchmark {
                 .blockLast();
 
         return System.currentTimeMillis() - start;
+    }
+
+    public static void main(String[] args) throws Exception {
+
+        System.out.println("===== BEGINNING BENCHMARK =====");
+        Thread.sleep(1000);
+
+        // 1️⃣ ExecutorService benchmark
+        long t1 = executorServiceBenchmark();
+        System.out.println("ExecutorService: " + t1 + " ms");
+
+        // 2️⃣ CompletableFuture benchmark
+        long t2 = completableFutureBenchmark();
+        System.out.println("CompletableFuture: " + t2 + " ms");
+
+        // 3️⃣ Reactor benchmark
+        long t3 = reactorBenchmark();
+        System.out.println("Reactor Flux: " + t3 + " ms");
     }
 }
 
