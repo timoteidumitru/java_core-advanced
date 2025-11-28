@@ -1,0 +1,23 @@
+                          [Root]
+                            |
+      ---------------------------------------------------
+      |                        |                        |
+   [A subtree]            [B subtree]               [C subtree]
+       |                       |                        |
+  ----------              --------------            -------------
+  |   |   |               |     |     |             |      |     |
+ [A1][A2][A3]          [B1]   [B2]  [B3]           [C1]   [C2]   [C3]
+       |                      |                      |
+    ------                -----------              ------------
+    |    |                |    |    |              |     |    |
+  [A21] [A22]           [B21][B22][B23]          [C21] [C22] [C23]
+
+
+🧠 What happens behind the scenes:
+
+    Root forks tasks A, B, C
+       * Worker 1 steals A subtree
+       * Worker 2 steals B subtree
+       * Worker 3 steals C subtree
+       * As any worker finishes early → it steals remaining children from others
+       * processing ends when all leaves have joined upward
