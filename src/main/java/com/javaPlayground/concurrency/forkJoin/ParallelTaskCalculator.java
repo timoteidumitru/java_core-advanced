@@ -6,7 +6,7 @@ import java.util.concurrent.RecursiveTask;
 
 public class ParallelTaskCalculator extends RecursiveTask<TreeStats> {
 
-    private static final int THRESHOLD = 200; // batch children before splitting
+    private static final int THRESHOLD = 200; // batch children before parallel execution
     private final Node node;
 
     public ParallelTaskCalculator(Node node) {
@@ -16,61 +16,31 @@ public class ParallelTaskCalculator extends RecursiveTask<TreeStats> {
     @Override
     protected TreeStats compute() {
 
-        // CPU-heavy task
-        long baseValue = heavyWork(node.getValue());
-
-        long sum = baseValue;
-        long count = 1;
-        long max = baseValue;
-        long height = 1;
-
+        long baseValue = TreeUtils.heavyWork(node.getValue());
         List<Node> children = node.getChildren();
 
-        // Sequential fallback for small batch
+        // Sequential fallback if few children
         if (children.size() < THRESHOLD) {
-            long maxChildHeight = 0;
-
+            List<TreeStats> childStats = new ArrayList<>();
             for (Node child : children) {
-                TreeStats c = new ParallelTaskCalculator(child).compute();
-
-                sum += c.getSum();
-                count += c.getCount();
-                max = Math.max(max, c.getMax());
-                maxChildHeight = Math.max(maxChildHeight, c.getHeight());
+                childStats.add(new ParallelTaskCalculator(child).compute());
             }
-
-            height = maxChildHeight + 1;
-            return new TreeStats(sum, count, max, height);
+            return TreeUtils.aggregate(baseValue, childStats);
         }
 
-        // Real parallel execution
+        // Parallel execution
         List<ParallelTaskCalculator> tasks = new ArrayList<>();
-
         for (Node child : children) {
             ParallelTaskCalculator task = new ParallelTaskCalculator(child);
             task.fork();
             tasks.add(task);
         }
 
-        long maxChildHeight = 0;
-
+        List<TreeStats> childStats = new ArrayList<>();
         for (ParallelTaskCalculator t : tasks) {
-            TreeStats c = t.join();
-            sum += c.getSum();
-            count += c.getCount();
-            max = Math.max(max, c.getMax());
-            maxChildHeight = Math.max(maxChildHeight, c.getHeight());
+            childStats.add(t.join());
         }
 
-        height = maxChildHeight + 1;
-        return new TreeStats(sum, count, max, height);
-    }
-
-    private static long heavyWork(long v) {
-        long x = v;
-        for (int i = 0; i < 500; i++) {
-            x = (x * 1664525 + 1013904223) & 0xFFFFFFFFL;
-        }
-        return x & 1023;
+        return TreeUtils.aggregate(baseValue, childStats);
     }
 }

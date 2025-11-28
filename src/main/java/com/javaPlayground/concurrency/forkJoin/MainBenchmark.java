@@ -5,38 +5,41 @@ import java.util.concurrent.ForkJoinPool;
 
 public class MainBenchmark {
 
-//    Node root = generateRandomTree(5, 70)
-//    Parallel:   TreeStats(sum=11927630360, count=23303543, max=1023, height=5) in 10514ms
-//    Sequential: TreeStats(sum=11542989141, count=22551544, max=1023, height=5) in 9886ms
+    // Wide Tree
+//    Node root = generateRandomTree(4, 250)
+//    Parallel:   TreeStats(sum=7901824548, count=15436378, max=1023, height=4) in 1268ms
+//    Sequential: TreeStats(sum=7996346160, count=15623107, max=1023, height=4) in 7113ms
 
+    // Medium Tree
 //    Node root = generateRandomTree(15, 4)
-//    Parallel:   TreeStats(sum=2812084126, count=5495036, max=1023, height=15) in 2619ms
-//    Sequential: TreeStats(sum=4347573364, count=8493767, max=1023, height=15) in 3984ms
+//    Parallel:   TreeStats(sum=5724133840, count=11182757, max=1023, height=15) in 5418ms
+//    Sequential: TreeStats(sum=4890379358, count=9554080, max=1023, height=15) in 4614ms
 
+    // Deep Tree
 //    Node root = generateRandomTree(25, 3);
-//    Parallel:   TreeStats(sum=37295729839, count=72860422, max=1023, height=25) in 34191ms
-//    Sequential: TreeStats(sum=8619808593, count=16840537, max=1023, height=25) in 7778ms
+//    Parallel:   TreeStats(sum=33638991050, count=65721031, max=1023, height=25) in 31221ms
+//    Sequential: TreeStats(sum=9008672288, count=17601312, max=1023, height=25) in 8326ms
 
     public static void main(String[] args) {
 
-        System.out.println("Generating WIDE tree...");
-        Node root = generateRandomTree(25, 3);
-
-        // Sequential approach
-//        SequentialTaskCalculator seq = new SequentialTaskCalculator();
-//        long t1 = System.currentTimeMillis();
-//        TreeStats seqStats = seq.compute(root);
-//        long t2 = System.currentTimeMillis();
-
-//        System.out.println("Sequential: " + seqStats + " in " + (t2 - t1) + "ms");
+        System.out.println("Generating tree...");
+        Node root = generateRandomTree(15, 4);
 
         // Parallel approach
-        ForkJoinPool pool = ForkJoinPool.commonPool();
-        long t3 = System.currentTimeMillis();
-        TreeStats parStats = pool.invoke(new ParallelTaskCalculator(root));
-        long t4 = System.currentTimeMillis();
+//        ForkJoinPool pool = ForkJoinPool.commonPool();
+//        long t3 = System.currentTimeMillis();
+//        TreeStats parStats = pool.invoke(new ParallelTaskCalculator(root));
+//        long t4 = System.currentTimeMillis();
+//
+//        System.out.println("Parallel:   " + parStats + " in " + (t4 - t3) + "ms");
 
-        System.out.println("Parallel:   " + parStats + " in " + (t4 - t3) + "ms");
+        // Sequential approach
+        SequentialTaskCalculator seq = new SequentialTaskCalculator();
+        long t1 = System.currentTimeMillis();
+        TreeStats seqStats = seq.compute(root);
+        long t2 = System.currentTimeMillis();
+
+        System.out.println("Sequential: " + seqStats + " in " + (t2 - t1) + "ms");
     }
 
     private static Node generateRandomTree(int height, int branchingFactor) {
