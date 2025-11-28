@@ -1,32 +1,15 @@
 package com.javaPlayground.concurrency.forkJoin;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@AllArgsConstructor
 public class TreeStats {
-    public long sum;
-    public long count;
-    public long max;
-    public long height;
 
-    public TreeStats(long sum, long count, long max, long height) {
-        this.sum = sum;
-        this.count = count;
-        this.max = max;
-        this.height = height;
-    }
-
-    public void combine(TreeStats other) {
-        this.sum += other.sum;
-        this.count += other.count;
-        this.max = Math.max(this.max, other.max);
-        this.height = Math.max(this.height, other.height);
-    }
-
-    @Override
-    public String toString() {
-        return "TreeStats { sum=" + sum +
-                ", count=" + count +
-                ", max=" + max +
-                ", height=" + height + " }";
-    }
+    private final long sum;
+    private final long count;
+    private final long max;
+    private final long height;
 }
-
