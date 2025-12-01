@@ -1,0 +1,20 @@
+
+                           ┌────────────────────┐
+                           │   Source (List)    │
+                           └─────────┬──────────┘
+                                     │
+                          Spliterator splits data
+                                     ▼
+                     ┌─────────┬─────────┬─────────┬─────────┐
+                     │Worker 1 │Worker 2 │Worker 3 │Worker 4 │   (ForkJoinPool threads)
+                     └────┬────┴────┬────┴────┬────┴────┬────┘
+                          │         │         │         │
+                          ▼         ▼         ▼         ▼
+                 apply intermediate ops (map/filter/etc) in parallel
+                          │         │         │         │
+                          └────┬────┬────┬────┬────┬────┘
+                               ▼
+                     results merged (reduce/collect)
+                               ▼
+                      Final Result Returned
+

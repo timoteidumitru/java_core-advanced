@@ -67,21 +67,21 @@
 
 ---
 
-## 🚧 7. Fork/Join Framework (To Cover)
+## ✅ 7. Fork/Join Framework (Covered)
 
-* Work-stealing pools
-* RecursiveTask / RecursiveAction
-* Divide-and-conquer algorithms
-* When to use fork/join vs executors
+  * Work-stealing pools
+  * RecursiveTask / RecursiveAction
+  * Divide-and-conquer algorithms
+  * When to use fork/join vs executors
 
 ---
 
-## 🚧 8. Parallel Streams (To Cover)
+## ✅ 8. Parallel Streams (Covered)
 
-* Relationship with ForkJoinPool
-* Spliterators
-* Performance considerations
-* Stateless vs stateful operations
+  * Relationship with ForkJoinPool
+  * Spliterators
+  * Performance considerations
+  * Stateless vs stateful operations
 
 ---
 
