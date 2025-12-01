@@ -22,7 +22,7 @@ public class ParallelStreamExample {
         runBenchmark(numbers.parallelStream());
 
         System.out.println("\nParallel sum (custom pool):");
-        ForkJoinPool customPool = new ForkJoinPool(8);
+        ForkJoinPool customPool = new ForkJoinPool(16);
         customPool.submit(() -> runBenchmark(numbers.parallelStream())).get();
     }
 

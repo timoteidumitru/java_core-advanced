@@ -1,4 +1,6 @@
 
+# 1. High level overview of Parallel Streams
+
                            ┌────────────────────┐
                            │   Source (List)    │
                            └─────────┬──────────┘
@@ -18,3 +20,13 @@
                                ▼
                       Final Result Returned
 
+
+# 2. Spliterator Splitting Diagram
+
+                      [1..16]
+                /                \
+           [1..8]               [9..16]
+          /      \              /        \
+       [1..4]  [5..8]        [9..12]   [13..16]
+       /   \    /  \         /    \     /     \
+   [1..2][3..4][5..6][7..8]... and so on
