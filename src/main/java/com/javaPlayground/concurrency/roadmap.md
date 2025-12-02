@@ -85,7 +85,7 @@
 
 ---
 
-## 🚧 9. Phaser, CyclicBarrier, CountDownLatch (To Cover)
+## ✅ 9. Phaser, CyclicBarrier, CountDownLatch (Covered)
 
 * CountDownLatch (one-time synchronization)
 * CyclicBarrier (reusable barriers)
