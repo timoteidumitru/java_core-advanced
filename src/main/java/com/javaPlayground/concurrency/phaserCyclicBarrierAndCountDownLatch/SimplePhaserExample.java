@@ -3,7 +3,7 @@ package com.javaPlayground.concurrency.phaserCyclicBarrierAndCountDownLatch;
 
 import java.util.concurrent.Phaser;
 
-public class PhaserExample {
+public class SimplePhaserExample {
 
     public static void main(String[] args) {
         Phaser phaser = new Phaser(1); // register main
