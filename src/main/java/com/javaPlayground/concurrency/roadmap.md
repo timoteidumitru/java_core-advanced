@@ -94,7 +94,7 @@
 
 ---
 
-## 🚧 10. Semaphores & Resource Control (To Cover)
+## ✅ 10. Semaphores & Resource Control (Covered)
 
 * Semaphore permits
 * Bounded resource pools
