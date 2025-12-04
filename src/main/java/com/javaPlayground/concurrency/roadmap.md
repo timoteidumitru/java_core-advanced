@@ -102,7 +102,7 @@
 
 ---
 
-## 🚧 11. ThreadLocal & InheritableThreadLocal (To Cover)
+## ✅ 11. ThreadLocal & InheritableThreadLocal (Covered)
 
 * Per-thread isolated state
 * Avoiding shared mutable state
