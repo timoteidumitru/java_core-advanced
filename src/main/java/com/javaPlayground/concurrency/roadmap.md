@@ -110,12 +110,11 @@
 
 ---
 
-## 🚧 12. Concurrent Collections (To Cover)
+## ✅ 12. Concurrent Collections (Covered)
 
 * ConcurrentHashMap
 * ConcurrentLinkedQueue / ConcurrentLinkedDeque
 * Blocking queues
-
   * LinkedBlockingQueue
   * ArrayBlockingQueue
   * SynchronousQueue
