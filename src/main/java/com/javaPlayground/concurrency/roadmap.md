@@ -124,7 +124,7 @@
 
 ---
 
-## 🚧 13. Java Memory Model – Deep Dive (To Cover)
+## ✅ 13. Java Memory Model – Deep Dive (Covered)
 
 * Happens-before rules
 * Safe publication
@@ -133,7 +133,7 @@
 
 ---
 
-## 🚧 14. Deadlocks, Livelocks, and Starvation (To Cover)
+## ✅ 14. Deadlocks, Livelocks, and Starvation (Covered)
 
 * Causes of deadlocks
 * Strategies to avoid deadlocks
