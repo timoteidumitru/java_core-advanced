@@ -143,7 +143,7 @@
 
 ---
 
-## 🚧 15. Concurrency Best Practices (To Cover)
+## ✅ 15. Concurrency Best Practices (Covered)
 
 * Immutable design
 * Stateless services
@@ -152,7 +152,7 @@
 
 ---
 
-## 🚧 16. Modern Concurrency (Optional but Recommended)
+## ✅ 16. Modern Concurrency (Covered)
 
 * Virtual Threads (Project Loom)
 * Structured concurrency
