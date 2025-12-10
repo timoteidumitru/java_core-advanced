@@ -6,6 +6,7 @@ public class StructuredConcurrencyExample {
 
     public static String fetchUser() throws Exception {
         Thread.sleep(200);
+
         return "John Doe";
     }
 
