@@ -23,7 +23,9 @@ public class ReactiveStreamExample {
 
                 @Override
                 public void onNext(Integer item) {
-                    System.out.println("Received: " + item);
+                    if (item % 10_000_000 == 0) {
+                        System.out.println("Received: " + item);
+                    }
                     subscription.request(1); // request next item
                 }
 
@@ -41,8 +43,11 @@ public class ReactiveStreamExample {
             publisher.subscribe(subscriber);
 
             // Publish events
-            for (int i = 1; i <= 5; i++) {
-                System.out.println("Publishing " + i);
+            for (int i = 1; i <= 100_000_000; i++) {
+                if (i % 10_000_000 == 0) {
+                    System.out.printf("Publishing " + i + "%n");
+                }
+
                 publisher.submit(i);
             }
         }
