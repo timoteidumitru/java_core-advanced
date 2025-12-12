@@ -66,7 +66,7 @@ public class DisruptorBenchmark {
         // Start the Disruptor
         RingBuffer<LongEvent> ringBuffer = disruptor.start();
 
-        ByteBuffer bb = ByteBuffer.allocate(8);
+        ByteBuffer bb = ByteBuffer.allocate(10);
 
         long start = System.nanoTime();
 
