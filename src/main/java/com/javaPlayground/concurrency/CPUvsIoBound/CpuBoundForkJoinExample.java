@@ -1,4 +1,4 @@
-package com.javaPlayground.concurrency.CPUvsIOBound;
+package com.javaPlayground.concurrency.CPUvsIoBound;
 
 import java.util.concurrent.*;
 
