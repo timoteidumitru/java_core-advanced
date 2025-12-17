@@ -156,7 +156,7 @@ A complete, modern, production-grade roadmap for mastering concurrency in Java, 
 
 ---
 
-# ❌ **STAGE 11 — Real-World Concurrency Patterns**
+# ✔️ **STAGE 11 — Real-World Concurrency Patterns**
 
 ## **Producer–Consumer (Advanced)**
 
@@ -185,7 +185,7 @@ A complete, modern, production-grade roadmap for mastering concurrency in Java, 
 
 ---
 
-# ❌ **STAGE 12 — CPU vs IO Bound Concurrency**
+# ✔️ **STAGE 12 — CPU vs IO Bound Concurrency**
 
 ## **CPU-Bound**
 
