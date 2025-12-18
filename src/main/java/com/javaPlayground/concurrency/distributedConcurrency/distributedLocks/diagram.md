@@ -1,5 +1,4 @@
-# Distributed Concurrency (Microservices)
-## Part 1: Distributed Locks & Leader Election — Diagrams
+# Part 1: Distributed Locks & Leader Election — Diagrams
 
 ---
 

@@ -1,5 +1,4 @@
-# Theory - Distributed Concurrency (Microservices)
-## Part 1: Distributed Locks & Leader Election
+# Part 1: Distributed Locks & Leader Election
 
 ---
 
