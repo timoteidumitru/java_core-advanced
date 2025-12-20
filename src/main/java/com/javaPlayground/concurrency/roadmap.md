@@ -203,7 +203,7 @@ A complete, modern, production-grade roadmap for mastering concurrency in Java, 
 
 ---
 
-# ❌ **STAGE 13 — Distributed Concurrency (Microservices)**
+# ✔️ **STAGE 13 — Distributed Concurrency (Microservices)**
 
 ## **Distributed Locks**
 
