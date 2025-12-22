@@ -1,6 +1,6 @@
 package com.javaPlayground.concurrency.jUnitConcurrencyTestingTechniques.debugging;
 
-public class JfrLockContentionDemo {
+public class JfrLockContentionExample {
 
     private static final Object LOCK = new Object();
 
