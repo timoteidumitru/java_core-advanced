@@ -1,23 +1,25 @@
 package com.javaPlayground.concurrency.jUnitConcurrencyTestingTechniques.debugging;
 
-public class JfrLockContentionExample {
+public class JfrBadLocking {
 
     private static final Object LOCK = new Object();
 
     public static void main(String[] args) throws Exception {
         for (int i = 0; i < 8; i++) {
-            new Thread(() -> {
+            Thread.ofPlatform().start(() -> {
                 while (true) {
                     synchronized (LOCK) {
-                        try {
-                            Thread.sleep(10);
-                        } catch (InterruptedException ignored) {}
+                        expensiveWork();
                     }
                 }
-            }, "worker-" + i).start();
+            });
         }
 
-        Thread.sleep(10_000);
+        Thread.sleep(60_000);
+    }
+
+    static void expensiveWork() {
+        try { Thread.sleep(10); } catch (InterruptedException ignored) {}
     }
 }
 
