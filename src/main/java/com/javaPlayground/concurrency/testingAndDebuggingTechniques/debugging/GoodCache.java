@@ -1,4 +1,4 @@
-package com.javaPlayground.concurrency.jUnitConcurrencyTestingTechniques.debugging;
+package com.javaPlayground.concurrency.testingAndDebuggingTechniques.debugging;
 
 import java.util.concurrent.ConcurrentHashMap;
 

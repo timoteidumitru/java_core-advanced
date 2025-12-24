@@ -1,4 +1,4 @@
-package com.javaPlayground.concurrency.jUnitConcurrencyTestingTechniques.testing;
+package com.javaPlayground.concurrency.testingAndDebuggingTechniques.testing;
 
 import org.junit.Test;
 import java.util.concurrent.CountDownLatch;
