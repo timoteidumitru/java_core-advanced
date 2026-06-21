@@ -231,7 +231,7 @@ A complete, modern, production-grade roadmap for mastering concurrency in Java, 
 
 ---
 
-# ❌ **STAGE 14 — Concurrency Testing & Debugging**
+# ✔️ **STAGE 14 — Concurrency Testing & Debugging**
 
 ## **Testing**
 
@@ -252,10 +252,9 @@ A complete, modern, production-grade roadmap for mastering concurrency in Java, 
 
 ---
 
-# ❌ **STAGE 15 — Architecture-Level Concurrency Decisions**
+# ✔️ **STAGE 15 — Architecture-Level Concurrency Decisions**
 
 * Choosing the right concurrency model
-
   * Virtual threads
   * Executors
   * CompletableFuture
